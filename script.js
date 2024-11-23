@@ -1,24 +1,40 @@
-let humanScore = 0;
-let computerScore = 0;
-
-alert("OPEN THE CONSOLE");
-
-console.log("Welcome to ROCK PAPER SCISSORS!");
-playGame()
-
 function getComputerChoice() {
     let moves = ["R", "P", "S"];
     let index = Math.floor(Math.random() * 3);
     return moves[index];
 }
 
-function getHumanChoice() {
-    return prompt("Rock (R), Paper (P), or Scissors (S)? ").toUpperCase();
+function endMessage() {
+    let message = "You win!"
+    if (computerScore >= 5) {
+        message = "You lose!"
+    } 
+    const resetButton = document.createElement("button");
+    resetButton.innerText = "New Game";
+    resetButton.setAttribute("style", "padding: 5px 10px; font-weight: 900; font-size: 32px; color: white; background-color: green; border: 3px solid rgb(8, 187, 8); border-radius: 5px;");
+    resetButton.addEventListener("click", () => window.location.reload());
+    display.innerText = "";
+    display.innerText = message;
+    display.setAttribute("style", "font-weight: 900; font-size: 50px;")
+    display.appendChild(resetButton);
 }
 
-function playRound() {
+function displayOutput(result) {
+    display.innerText = "";
+    let banner = document.createElement("div");
+    banner.innerText = "Scores:";
+    let scores = document.createElement("div");
+    scores.innerText = `You: ${humanScore} Opponent: ${computerScore}`;
+    let winner = document.createElement("div");
+    winner.innerText = result;
+    winner.setAttribute("style", "font-weight: 900; font-size: 32px;");
+    display.appendChild(banner);
+    display.appendChild(scores);
+    display.appendChild(winner);
+}
+
+function playRound(userMove) {
     let compMove = getComputerChoice();
-    let userMove = getHumanChoice();
     let result = "Round lost!";
 
     if (compMove === userMove) {
@@ -40,18 +56,20 @@ function playRound() {
     else if (result === "Round won!") {
         humanScore++;
     }
-    console.log(result);
+    const gameOver = function() {return humanScore >= 5 || computerScore >= 5};
+    if (gameOver()) endMessage();
+    else displayOutput(result);
 }
 
-function playGame() {
-    while (humanScore < 5 && computerScore < 5) {
-        playRound();
-    }
-    if (humanScore === 5) {
-        console.log("You win!");
-    }
-    else {
-        console.log("Better luck next time!");
-    }
-    location.reload();
-}
+
+let humanScore = 0;
+let computerScore = 0;
+
+const display = document.querySelector("#output");
+const moves = document.querySelectorAll(".moves");
+
+displayOutput("Select a move to begin!");
+
+moves.forEach((btn) => {
+    btn.addEventListener("click", (e) => playRound(e.target.value));
+});
