@@ -64,6 +64,7 @@ function playRound(userMove) {
     else displayOutput(result, compMove);
 }
 
+//execution
 
 let humanScore = 0;
 let computerScore = 0;
