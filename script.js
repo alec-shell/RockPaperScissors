@@ -4,21 +4,6 @@ function getComputerChoice() {
     return moves[index];
 }
 
-function endMessage() {
-    let message = "You win!"
-    if (computerScore >= 5) {
-        message = "You lose!"
-    } 
-    const resetButton = document.createElement("button");
-    resetButton.innerText = "New Game";
-    resetButton.setAttribute("style", "padding: 5px 10px; font-weight: 900; font-size: 32px; color: white; background-color: green; border: 3px solid rgb(8, 187, 8); border-radius: 5px;");
-    resetButton.addEventListener("click", () => window.location.reload());
-    display.innerText = "";
-    display.innerText = message;
-    display.setAttribute("style", "font-weight: 900; font-size: 50px;")
-    display.appendChild(resetButton);
-}
-
 function displayOutput(result) {
     display.innerText = "";
     let banner = document.createElement("div");
@@ -31,6 +16,21 @@ function displayOutput(result) {
     display.appendChild(banner);
     display.appendChild(scores);
     display.appendChild(winner);
+}
+
+function endMessage() {
+    let message = "You win!"
+    if (computerScore >= 5) {
+        message = "You lose!"
+    } 
+    const resetButton = document.createElement("button");
+    resetButton.innerText = "New Game";
+    resetButton.setAttribute("style", "padding: 5px 10px; font-weight: 900; font-size: 28px; color: white; background-color: green; border: 3px solid rgb(8, 187, 8); border-radius: 5px;");
+    resetButton.addEventListener("click", () => window.location.reload());
+    display.innerText = "";
+    display.innerText = message;
+    display.setAttribute("style", "font-weight: 900; font-size: 40px;");
+    display.appendChild(resetButton);
 }
 
 function playRound(userMove) {
