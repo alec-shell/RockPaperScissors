@@ -1,10 +1,10 @@
 function getComputerChoice() {
-    let moves = ["R", "P", "S"];
+    let moves = ["Rock", "Paper", "Scissors"];
     let index = Math.floor(Math.random() * 3);
     return moves[index];
 }
 
-function displayOutput(result) {
+function displayOutput(result, comp = "") {
     display.innerText = "";
     let banner = document.createElement("div");
     banner.innerText = "Scores:";
@@ -13,8 +13,11 @@ function displayOutput(result) {
     let winner = document.createElement("div");
     winner.innerText = result;
     winner.setAttribute("style", "font-weight: 900; font-size: 32px;");
+    let compMove = document.createElement("div");
+    compMove.innerText = `Opponent chose: ${comp}`
     display.appendChild(banner);
     display.appendChild(scores);
+    display.appendChild(compMove);
     display.appendChild(winner);
 }
 
@@ -25,7 +28,7 @@ function endMessage() {
     } 
     const resetButton = document.createElement("button");
     resetButton.innerText = "New Game";
-    resetButton.setAttribute("style", "padding: 5px 10px; font-weight: 900; font-size: 28px; color: white; background-color: green; border: 3px solid rgb(8, 187, 8); border-radius: 5px;");
+    resetButton.setAttribute("style", "padding: 5px 10px; font-weight: 900; font-size: 28px; color: white; background-color: rgb(223, 152, 21); border: 3px solid white; border-radius: 5px;");
     resetButton.addEventListener("click", () => window.location.reload());
     display.innerText = "";
     display.innerText = message;
@@ -40,13 +43,13 @@ function playRound(userMove) {
     if (compMove === userMove) {
         result = "Tie!";
     }
-    else if (compMove === "R" && userMove === "P") {
+    else if (compMove === "Rock" && userMove === "Paper") {
         result = "Round won!";
     }
-    else if (compMove === "P" && userMove === "S") {
+    else if (compMove === "Paper" && userMove === "Scissors") {
         result = "Round won!";
     }
-    else if (compMove === "S" && userMove === "R") {
+    else if (compMove === "Scissors" && userMove === "Rock") {
         result = "Round won!";
     }
 
@@ -58,7 +61,7 @@ function playRound(userMove) {
     }
     const gameOver = function() {return humanScore >= 5 || computerScore >= 5};
     if (gameOver()) endMessage();
-    else displayOutput(result);
+    else displayOutput(result, compMove);
 }
 
 
